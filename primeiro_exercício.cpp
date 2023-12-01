@@ -7,7 +7,7 @@ public:
     No<T>* proximo;
     No<T>* anterior;
 
-    No(const T& value) : numero(value), proximo(nullptr), anterior(nullptr) {}
+    No(const T& entrada) : numero(entrada), proximo(nullptr), anterior(nullptr) {}
 };
 
 template <typename T>
@@ -19,45 +19,45 @@ private:
 public:
     listaDupla() : cabeca(nullptr), cauda(nullptr) {}
 
-    void addNumero(const T& value)
+    void addNumero(const T& entrada)
     {
-        No<T>* newNode = new No<T>(value);
+        No<T>* novoNo = new No<T>(entrada);
 
         if (!cabeca)
         {
-            cabeca = cauda = newNode;
+            cabeca = cauda = novoNo;
         }
         else
         {
-            newNode->anterior = cauda;
-            cauda->proximo = newNode;
-            cauda = newNode;
+            novoNo->anterior = cauda;
+            cauda->proximo = novoNo;
+            cauda = novoNo;
         }
     }
     void crescente()
     {
-        No<T>* current = cabeca;
-        while (current)
+        No<T>* atual = cabeca;
+        while (atual)
         {
-            std::cout << current->numero << " ";
-            current = current->proximo;
+            std::cout << atual->numero << " ";
+            atual = atual->proximo;
         }
         std::cout << std::endl;
     }
     void decrescente()
     {
-        No<T>* current = cauda;
-        while (current)
+        No<T>* atual = cauda;
+        while (atual)
         {
-            std::cout << current->numero << " ";
-            current = current->anterior;
+            std::cout << atual->numero << " ";
+            atual = atual->anterior;
         }
         std::cout << std::endl;
     }
 
     bool verificaNos()
     {
-        if (cauda != nullptr && cabeca != nullptr)
+        if (cabeca != nullptr)
         {
             return true;
         }
