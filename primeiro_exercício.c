@@ -6,7 +6,7 @@ typedef struct No
     int dado;
     struct No *proximo;
     struct No *anterior;
-}
+
 No;
 
 typedef struct listaDupla
