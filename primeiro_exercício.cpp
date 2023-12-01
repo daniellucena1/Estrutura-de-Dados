@@ -1,72 +1,63 @@
 #include <iostream>
 
-// Definição da classe do nó
 template <typename T>
-class Node {
+class No {
 public:
-    T data;
-    Node<T>* next;
-    Node<T>* prev;
+    T numero;
+    No<T>* proximo;
+    No<T>* anterior;
 
-    Node(const T& value) : data(value), next(nullptr), prev(nullptr) {}
+    No(const T& value) : numero(value), proximo(nullptr), anterior(nullptr) {}
 };
 
-// Definição da classe da lista duplamente encadeada
 template <typename T>
-class DoublyLinkedList {
+class listaDupla {
 private:
-    Node<T>* head;
-    Node<T>* tail;
+    No<T>* cabeca;
+    No<T>* cauda;
 
 public:
-    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+    listaDupla() : cabeca(nullptr), cauda(nullptr) {}
 
-    // Função para adicionar um elemento no final da lista
-    void pushBack(const T& value)
+    void addNumero(const T& value)
     {
-        Node<T>* newNode = new Node<T>(value);
+        No<T>* newNode = new No<T>(value);
 
-        if (!head)
+        if (!cabeca)
         {
-            // Se a lista estiver vazia, o novo nó é tanto a cabeça quanto a cauda
-            head = tail = newNode;
+            cabeca = cauda = newNode;
         }
         else
         {
-            // Se a lista não estiver vazia, adicionamos o novo nó ao final
-            newNode->prev = tail;
-            tail->next = newNode;
-            tail = newNode;
+            newNode->anterior = cauda;
+            cauda->proximo = newNode;
+            cauda = newNode;
         }
     }
-
-    // Função para imprimir a lista da frente para trás
-    void printForward()
+    void crescente()
     {
-        Node<T>* current = head;
+        No<T>* current = cabeca;
         while (current)
         {
-            std::cout << current->data << " ";
-            current = current->next;
+            std::cout << current->numero << " ";
+            current = current->proximo;
         }
         std::cout << std::endl;
     }
-
-    // Função para imprimir a lista de trás para frente
-    void printBackward()
+    void decrescente()
     {
-        Node<T>* current = tail;
+        No<T>* current = cauda;
         while (current)
         {
-            std::cout << current->data << " ";
-            current = current->prev;
+            std::cout << current->numero << " ";
+            current = current->anterior;
         }
         std::cout << std::endl;
     }
 
     bool verificaNos()
     {
-        if (tail != nullptr && head != nullptr)
+        if (cauda != nullptr && cabeca != nullptr)
         {
             return true;
         }
@@ -101,15 +92,14 @@ int numeroEscolhido() {
 
 int main()
 {
-    // Exemplo de uso da lista encadeada dupla
-    DoublyLinkedList<int> myList;
+    listaDupla<int> lista;
     int entrada = 1;
     while (entrada != 0) {
         entrada = menuInicial();
 
         switch (entrada) {
             case 1:
-                if (myList.verificaNos()){
+                if (lista.verificaNos()){
                     std::cout << ">> Lista está ocupada" << std::endl;
                 }
                 else
@@ -118,22 +108,22 @@ int main()
                 }
                 break;
             case 2:
-                myList.pushBack(numeroEscolhido());
+                lista.addNumero(numeroEscolhido());
                 break;
             default:
                 std::cout << ">> Você não escolheu umas das opções" << std::endl;
         }
     }
 
-    myList.pushBack(1);
-    myList.pushBack(2);
-    myList.pushBack(3);
+    lista.addNumero(1);
+    lista.addNumero(2);
+    lista.addNumero(3);
 
     std::cout << "Lista da frente para trás: ";
-    myList.printForward();
+    lista.crescente();
 
     std::cout << "Lista de trás para frente: ";
-    myList.printBackward();
+    lista.decrescente();
 
     return 0;
 }
