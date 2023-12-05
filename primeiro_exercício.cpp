@@ -23,6 +23,27 @@ public:
     {
         No<T>* novoNo = new No<T>(entrada);
 
+
+        /*if (!cabeca)
+        {
+            cabeca = cauda = novoNo;
+        }
+        else
+        {
+            No<T>* atual = cabeca;
+
+            while(true)
+            {
+                if (atual->numero < entrada && atual->proximo->numero > entrada)
+                {
+                    novoNo->anterior = atual;
+                    novoNo->proximo = atual->proximo;
+                    atual->proximo = novoNo;
+                    break;
+                }
+            }
+        }*/
+
         if (!cabeca)
         {
             cabeca = cauda = novoNo;
@@ -70,7 +91,7 @@ public:
 
 int menuInicial()
 {
-    int entrada = 0;
+    int entrada;
     std::cout << ">> 1. Verificar itens da lista" << std::endl;
     std::cout << ">> 2. Inserir números" << std::endl;
     std::cout << ">> 3. Remover números" << std::endl;
@@ -93,13 +114,22 @@ int numeroEscolhido() {
 int main()
 {
     listaDupla<int> lista;
+
+    lista.addNumero(1);
+    lista.addNumero(2);
+    lista.addNumero(4);
+
     int entrada = 1;
-    while (entrada != 0) {
+
+    while (entrada != 0)
+    {
         entrada = menuInicial();
 
-        switch (entrada) {
+        switch (entrada)
+        {
             case 1:
-                if (lista.verificaNos()){
+                if (lista.verificaNos())
+                {
                     std::cout << ">> Lista está ocupada" << std::endl;
                 }
                 else
@@ -114,10 +144,6 @@ int main()
                 std::cout << ">> Você não escolheu umas das opções" << std::endl;
         }
     }
-
-    lista.addNumero(1);
-    lista.addNumero(2);
-    lista.addNumero(3);
 
     std::cout << "Lista da frente para trás: ";
     lista.crescente();
