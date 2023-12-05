@@ -19,42 +19,76 @@ private:
 public:
     listaDupla() : cabeca(nullptr), cauda(nullptr) {}
 
-    void addNumero(const T& entrada)
+    bool addNumero(const T& entrada)
     {
-        No<T>* novoNo = new No<T>(entrada);
-
-
-        /*if (!cabeca)
-        {
-            cabeca = cauda = novoNo;
-        }
-        else
-        {
-            No<T>* atual = cabeca;
-
-            while(true)
-            {
-                if (atual->numero < entrada && atual->proximo->numero > entrada)
-                {
-                    novoNo->anterior = atual;
-                    novoNo->proximo = atual->proximo;
-                    atual->proximo = novoNo;
-                    break;
-                }
-            }
-        }*/
-
         if (!cabeca)
         {
+            No<T>* novoNo = new No<T>(entrada);
+
             cabeca = cauda = novoNo;
+            return true;
         }
-        else
+
+        No<T>* novoNo = new No<T>(entrada);
+
+        No<T>* atual = cabeca;
+
+        while(atual->proximo)
         {
-            novoNo->anterior = cauda;
-            cauda->proximo = novoNo;
-            cauda = novoNo;
+            if (atual->numero < novoNo->numero && atual->proximo->numero > novoNo->numero)
+            {
+                novoNo->anterior = atual;
+                novoNo->proximo = atual->proximo;
+                atual->proximo->anterior = novoNo;
+                atual->proximo = novoNo;
+                return true;
+            }
+            atual = atual->proximo;
         }
+
+        novoNo->anterior = cauda;
+        cauda->proximo = novoNo;
+        cauda = novoNo;
+        return true;
     }
+
+    bool removerNumero(const T& numero)
+    {
+        No<T>* atual = cabeca;
+
+        while (atual)
+        {
+            if (atual->numero == numero)
+            {
+                if (atual->anterior)
+                {
+                    atual->anterior->proximo = atual->proximo;
+                }
+                else
+                {
+                    cabeca = atual->proximo;
+                }
+
+                if (atual->proximo)
+                {
+                    atual->proximo->anterior = atual->anterior;
+                }
+                else
+                {
+                    cauda = atual->anterior;
+                }
+
+                delete atual;
+                return true;
+            }
+
+            atual = atual->proximo;
+        }
+
+        std::cout << "Número não encontrado na lista." << std::endl;
+        return false;
+    }
+
     void crescente()
     {
         No<T>* atual = cabeca;
@@ -65,6 +99,7 @@ public:
         }
         std::cout << std::endl;
     }
+
     void decrescente()
     {
         No<T>* atual = cauda;
@@ -74,6 +109,23 @@ public:
             atual = atual->anterior;
         }
         std::cout << std::endl;
+    }
+
+    bool pesquisar(const T& entrada)
+    {
+        No<T>* atual = cabeca;
+
+        while(atual)
+        {
+            if (atual->numero == entrada)
+            {
+                std::cout << ">> Número encontrado" << std::endl;
+                return true;
+            }
+            atual = atual->proximo;
+        }
+        std::cout << ">> Número não encontrado" << std::endl;
+        return false;
     }
 
     bool verificaNos()
@@ -115,10 +167,6 @@ int main()
 {
     listaDupla<int> lista;
 
-    lista.addNumero(1);
-    lista.addNumero(2);
-    lista.addNumero(4);
-
     int entrada = 1;
 
     while (entrada != 0)
@@ -140,8 +188,20 @@ int main()
             case 2:
                 lista.addNumero(numeroEscolhido());
                 break;
+            case 3:
+                lista.removerNumero(numeroEscolhido());
+                break;
+            case 4:
+                lista.pesquisar(numeroEscolhido());
+                break;
+            case 5:
+                lista.crescente();
+                break;
+            case 6:
+                lista.decrescente();
+                break;
             default:
-                std::cout << ">> Você não escolheu umas das opções" << std::endl;
+                std::cout << ">> Encerrando..." << std::endl;
         }
     }
 
