@@ -64,6 +64,19 @@ Stack *pop(Stack *topo)
   return novoTopo;
 }
 
+int liberarNos(Stack* topo)
+{
+    int cont = 0;
+    while(topo != NULL)
+    {
+        Stack* temp = topo;
+        topo = topo->next;
+        free(temp);
+        cont += 1;
+    }
+    return cont;
+}
+
 int main()
 {
   int opcao = -1;
@@ -91,4 +104,5 @@ int main()
       break;
     }
   }
+  printf("-> Nos liberados: %d", liberarNos(pilha));
 }
