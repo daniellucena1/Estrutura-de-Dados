@@ -145,7 +145,8 @@ public:
     int liberarNos()
     {
         int cont = 0;
-        while (cabeca != nullptr) {
+        while (cabeca != nullptr)
+        {
             No<T>* temp = cabeca;
             cabeca = cabeca->proximo;
             delete temp;
