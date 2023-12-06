@@ -141,6 +141,20 @@ public:
             return false;
         }
     }
+
+    int liberarNos()
+    {
+        int cont = 0;
+        while (cabeca != nullptr) {
+            No<T>* temp = cabeca;
+            cabeca = cabeca->proximo;
+            delete temp;
+            cont += 1;
+        }
+
+        cauda = nullptr;
+        return cont;
+    }
 };
 
 int menuInicial()
@@ -206,5 +220,7 @@ int main()
                 cout << ">> Encerrando..." << endl;
         }
     }
+
+    cout << "-> Nos liberados: " << lista.liberarNos();
     return 0;
 }
