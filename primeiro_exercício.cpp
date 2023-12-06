@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 template <typename T>
 class No {
 public:
@@ -85,7 +87,7 @@ public:
             atual = atual->proximo;
         }
 
-        std::cout << "Número não encontrado na lista." << std::endl;
+        cout << "Número não encontrado na lista." << endl;
         return false;
     }
 
@@ -94,10 +96,10 @@ public:
         No<T>* atual = cabeca;
         while (atual)
         {
-            std::cout << atual->numero << " ";
+            cout << atual->numero << " ";
             atual = atual->proximo;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     void decrescente()
@@ -105,10 +107,10 @@ public:
         No<T>* atual = cauda;
         while (atual)
         {
-            std::cout << atual->numero << " ";
+            cout << atual->numero << " ";
             atual = atual->anterior;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     bool pesquisar(const T& entrada)
@@ -119,12 +121,12 @@ public:
         {
             if (atual->numero == entrada)
             {
-                std::cout << ">> Número encontrado" << std::endl;
+                cout << ">> Número encontrado" << endl;
                 return true;
             }
             atual = atual->proximo;
         }
-        std::cout << ">> Número não encontrado" << std::endl;
+        cout << ">> Número não encontrado" << endl;
         return false;
     }
 
@@ -144,22 +146,22 @@ public:
 int menuInicial()
 {
     int entrada;
-    std::cout << ">> 1. Verificar itens da lista" << std::endl;
-    std::cout << ">> 2. Inserir números" << std::endl;
-    std::cout << ">> 3. Remover números" << std::endl;
-    std::cout << ">> 4. Pesquisar número" << std::endl;
-    std::cout << ">> 5. Mostrar números em ordem crescente" << std::endl;
-    std::cout << ">> 6. Mostrar números em forma decrescente" << std::endl;
-    std::cout << ">> 0. Encerrar" << std::endl;
-    std::cout << "Escolha umas das opções: ";
-    std::cin >> entrada;
+    cout << ">> 1. Verificar itens da lista" << endl;
+    cout << ">> 2. Inserir numeros" << endl;
+    cout << ">> 3. Remover numeros" << endl;
+    cout << ">> 4. Pesquisar numero" << endl;
+    cout << ">> 5. Mostrar numeros em ordem crescente" << endl;
+    cout << ">> 6. Mostrar numeros em forma decrescente" << endl;
+    cout << ">> 0. Encerrar" << endl;
+    cout << "Escolha umas das opcoes: ";
+    cin >> entrada;
     return entrada;
 }
 
 int numeroEscolhido() {
     int num;
-    std::cout << ">> Digite um número: ";
-    std::cin >> num;
+    cout << ">> Digite um numero: ";
+    cin >> num;
     return num;
 }
 
@@ -178,11 +180,11 @@ int main()
             case 1:
                 if (lista.verificaNos())
                 {
-                    std::cout << ">> Lista está ocupada" << std::endl;
+                    cout << ">> Lista esta ocupada" << endl;
                 }
                 else
                 {
-                    std::cout << "Lista está vazia" << std::endl;
+                    cout << "Lista esta vazia" << endl;
                 }
                 break;
             case 2:
@@ -201,15 +203,8 @@ int main()
                 lista.decrescente();
                 break;
             default:
-                std::cout << ">> Encerrando..." << std::endl;
+                cout << ">> Encerrando..." << endl;
         }
     }
-
-    std::cout << "Lista da frente para trás: ";
-    lista.crescente();
-
-    std::cout << "Lista de trás para frente: ";
-    lista.decrescente();
-
     return 0;
 }
