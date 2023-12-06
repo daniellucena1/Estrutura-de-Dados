@@ -78,17 +78,79 @@ class FilaUnica
                     atual = atual->proximo;
                 }
             }
-
         }
+
+    int liberarNos()
+    {
+        int cont = 0;
+        while (inicio != nullptr) {
+            No* temp = inicio;
+            inicio = inicio->proximo;
+            delete temp;
+            cont += 1;
+        }
+
+        fim = nullptr;
+        return cont;
+    }
 };
 
-int menuInicial (int valor)
+int menuInicial ()
+{
+    int entrada;
+    cout << ">> 1 - Verificar se a lista esta vazia" << endl;
+    cout << ">> 2 - Enfileirar" << endl;
+    cout << ">> 3 - Desenfileirar" << endl;
+    cout << ">> 4 - Imprimir fila" << endl;
+    cout << ">> 0 - Encerrar" << endl;
+    cout << ">> Digite uma opcao: " << endl << "-> ";
+    cin >> entrada;
+    return entrada;
+}
+
+int numeroEscolhido()
+{
+    int entrada;
+    cout << ">> Escolha um numero para a fila :" << endl << "-> ";
+    cin >> entrada;
+    return entrada;
+}
 
 int main ()
 {
     FilaUnica fila;
+    int entrada = -1;
 
+    while (entrada != 0)
+    {
+        entrada = menuInicial();
 
+        switch (entrada)
+        {
+            case 1:
+                if (fila.estaVazia())
+                {
+                    cout << ">> Lista esta vazia" << endl;
+                }
+                else
+                {
+                    cout << ">> A lista esta ocupada" << endl;
+                }
+                break;
+            case 2:
+                fila.enfileirar(numeroEscolhido());
+                break;
+            case 3:
+                fila.desenfileirar();
+                break;
+            case 4:
+                fila.mostrarValores();
+                break;
+            default:
+                cout << ">> Encerrando..." << endl;
+        }
+    }
 
+    cout << "-> Nos liberados: " << fila.liberarNos();
     return 0;
 }
